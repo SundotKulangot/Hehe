@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jonathan Parajas</title>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+</head>
+<body>
+  
+<ion-app>
+    <ion-header>
+        <ion-toolbar color="primary">
+            <ion-title>FOOD DELIVERY FORM</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content>       
+        <ion-item>
+            <ion-input id="deliveryAddress" label = "Delivery Address" label-placement="floating" type="text" position="stacked"></ion-input>
+        </ion-item>
+       
+        <ion-list>
+            <ion-item>
+                <ion-select id="paymentMethod" label = "Payment Method" placeholder="Select Payment Method" onchange="selectPayment()">
+                    <ion-select-option value="Credit Card">Credit Card</ion-select-option>
+                    <ion-select-option value="Paypal">Paypal</ion-select-option>
+                    <ion-select-option value="Cash On Hand">Cash on Hand</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-list>
+
+        <ion-list>
+            <ion-item>
+                <ion-checkbox id="box" label-placement="start">Save Payment Method</ion-checkbox>
+            </ion-item>
+        </ion-list>
+        
+        <ion-item id="cashOnHand" style="display: none;">
+            <ion-input id="cashOnly" label="Cash On Hand:"label-placement="floating" type="number"></ion-input>
+        </ion-item>
+
+        <ion-item id="Price">
+            <ion-input id="foodP" label="Food Price:" label-placement="floating" type="number"></ion-input>
+        </ion-item>
+        
+        <ion-button expand="block" onclick="trig()" color="success">SUBMIT ORDER</ion-button>
+      
+        <ion-card>
+            <ion-item>
+                <ion-label>
+                    <ion-text id="res" color = "medium"></ion-text>
+                    <br>
+                </ion-label>
+            </ion-item>
+        </ion-card>
+    </ion-content>
+
+<script>
+    function trig() {
+        const paymentMethod = document.getElementById('paymentMethod').value;
+        const deliveryAddress = document.getElementById('deliveryAddress').value;
+        const box = document.getElementById('box');
+        const cashOnly = document.getElementById('cashOnly').value; 
+        const foodP = document.getElementById('foodP').value;
+
+        let results = "Address: " + deliveryAddress + "<br>Payment Method: " + paymentMethod;
+
+    
+        if (paymentMethod === "Cash On Hand") {
+            results += "<br>Amount of Cash on Hand: " + cashOnly;
+        }
+
+    
+        if (box.checked) {
+            results += "<br>Payment Method will be saved.";
+        }
+    
+        document.getElementById('res').innerHTML = results;
+    }
+
+    document.getElementById("paymentMethod").addEventListener("ionChange", selectPayment)
+    function selectPayment() {
+        let paymentMethod = document.getElementById('paymentMethod').value;
+        let cashOnHandInput = document.getElementById('cashOnHand');
+
+      
+        if (paymentMethod == "Cash On Hand") {
+            cashOnHand.style.display = "block";
+        } else {
+            cashOnHandInput.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>
